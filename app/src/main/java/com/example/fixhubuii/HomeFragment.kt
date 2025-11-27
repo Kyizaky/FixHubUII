@@ -21,6 +21,7 @@ class HomeFragment : Fragment() {
 
         val cardLaporkan = view.findViewById<View>(R.id.cardLaporkan)
         val cardRiwayat = view.findViewById<View>(R.id.cardRiwayat)
+        val btnSettings = view.findViewById<View>(R.id.btnSettings)
 
         cardLaporkan.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_laporFragment)
@@ -28,6 +29,10 @@ class HomeFragment : Fragment() {
 
         cardRiwayat.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_riwayatLaporanFragment)
+        }
+
+        btnSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_pengaturanFragment)
         }
     }
 }
