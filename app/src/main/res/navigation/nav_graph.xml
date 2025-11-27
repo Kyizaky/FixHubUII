@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.fixhubuii.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.fixhubuii.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home"
+        app:enterAnim="@anim/nav_enter"
+        app:exitAnim="@anim/nav_exit"
+        app:popEnterAnim="@anim/nav_pop_enter"
+        app:popExitAnim="@anim/nav_pop_exit"/>
+    <fragment
+        android:id="@+id/laporFragment"
+        android:name="com.example.fixhubuii.LaporFragment"
+        android:label="fragment_lapor"
+        tools:layout="@layout/fragment_lapor"
+        app:enterAnim="@anim/nav_enter"
+        app:exitAnim="@anim/nav_exit"
+        app:popEnterAnim="@anim/nav_pop_enter"
+        app:popExitAnim="@anim/nav_pop_exit"/>
+    <fragment
+        android:id="@+id/pengaturanFragment"
+        android:name="com.example.fixhubuii.PengaturanFragment"
+        android:label="fragment_pengaturan"
+        tools:layout="@layout/fragment_pengaturan"
+        app:enterAnim="@anim/nav_enter"
+        app:exitAnim="@anim/nav_exit"
+        app:popEnterAnim="@anim/nav_pop_enter"
+        app:popExitAnim="@anim/nav_pop_exit"/>
+</navigation>
