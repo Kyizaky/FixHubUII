@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.fixhubuii.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.fixhubuii.HomeFragment"
@@ -18,7 +19,14 @@
         app:enterAnim="@anim/nav_enter"
         app:exitAnim="@anim/nav_exit"
         app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit"/>
+        app:popExitAnim="@anim/nav_pop_exit">
+        <action
+            android:id="@+id/action_homeFragment_to_laporFragment"
+            app:destination="@id/laporFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_riwayatLaporanFragment"
+            app:destination="@id/riwayatLaporanFragment" />
+    </fragment>
     <fragment
         android:id="@+id/laporFragment"
         android:name="com.example.fixhubuii.LaporFragment"
@@ -27,7 +35,11 @@
         app:enterAnim="@anim/nav_enter"
         app:exitAnim="@anim/nav_exit"
         app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit"/>
+        app:popExitAnim="@anim/nav_pop_exit">
+        <action
+            android:id="@+id/action_laporFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pengaturanFragment"
         android:name="com.example.fixhubuii.PengaturanFragment"
@@ -37,4 +49,23 @@
         app:exitAnim="@anim/nav_exit"
         app:popEnterAnim="@anim/nav_pop_enter"
         app:popExitAnim="@anim/nav_pop_exit"/>
+    <fragment
+        android:id="@+id/detailLaporanFragment"
+        android:name="com.example.fixhubuii.DetailLaporanFragment"
+        android:label="DetailLaporanFragment" >
+        <action
+            android:id="@+id/action_detailLaporanFragment_to_riwayatLaporanFragment"
+            app:destination="@id/riwayatLaporanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/riwayatLaporanFragment"
+        android:name="com.example.fixhubuii.RiwayatLaporanFragment"
+        android:label="RiwayatLaporanFragment" >
+        <action
+            android:id="@+id/action_riwayatLaporanFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_riwayatLaporanFragment_to_detailLaporanFragment"
+            app:destination="@id/detailLaporanFragment" />
+    </fragment>
 </navigation>

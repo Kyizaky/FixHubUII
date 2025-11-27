@@ -1,5 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?><!-- res/values/strings.xml -->
 <resources>
-    <string name="app_name">FixHubUII</string>
+    <string name="app_name">Fix Hub UII</string>
+
+    <!-- Form Pelaporan -->
+    <string name="form_title">Form Pelaporan</string>
+    <string name="form_subtitle">Laporkan kerusakan barang</string>
+
+    <!-- Kategori Barang -->
+    <string-array name="kategori_barang">
+        <item>Elektronik</item>
+        <item>Furniture</item>
+        <item>Kendaraan</item>
+        <item>Komputer &amp; Laptop</item>
+        <item>Printer &amp; Scanner</item>
+        <item>Proyektor</item>
+        <item>AC &amp; Pendingin</item>
+        <item>Alat Laboratorium</item>
+        <item>Alat Olahraga</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <!-- Fakultas List -->
+    <string-array name="fakultas_list">
+        <item>Fakultas Teknik</item>
+        <item>Fakultas Ekonomi dan Bisnis</item>
+        <item>Fakultas Ilmu Komputer</item>
+        <item>Fakultas Kedokteran</item>
+        <item>Fakultas Hukum</item>
+        <item>Fakultas Ilmu Sosial dan Politik</item>
+        <item>Fakultas Pertanian</item>
+        <item>Fakultas MIPA</item>
+        <item>Fakultas Psikologi</item>
+        <item>Fakultas Seni dan Desain</item>
+    </string-array>
+
+    <!-- Gedung List -->
+    <string-array name="gedung_list">
+        <item>Gedung A</item>
+        <item>Gedung B</item>
+        <item>Gedung C</item>
+        <item>Gedung D</item>
+        <item>Gedung E</item>
+        <item>Gedung Rektorat</item>
+        <item>Gedung Perpustakaan</item>
+        <item>Gedung Lab</item>
+        <item>Gedung Dekanat</item>
+        <item>Gedung Auditorium</item>
+    </string-array>
+
+    <!-- Validation Messages -->
+    <string name="error_nama_barang">Nama barang harus diisi</string>
+    <string name="error_kategori">Kategori harus dipilih</string>
+    <string name="error_lokasi">Lokasi barang harus diisi</string>
+    <string name="error_fakultas">Fakultas harus dipilih</string>
+    <string name="error_gedung">Gedung harus dipilih</string>
+    <string name="error_ruangan">Ruangan harus diisi</string>
+    <string name="error_tingkat_kerusakan">Pilih tingkat kerusakan</string>
+    <string name="error_deskripsi">Deskripsi kerusakan harus diisi</string>
+    <string name="error_tanggal">Tanggal kejadian harus dipilih</string>
+
+    <!-- Success Messages -->
+    <string name="success_submit">Laporan berhasil dikirim</string>
+    <string name="success_upload">Foto berhasil diupload</string>
+
+    <!-- Confirmation -->
+    <string name="confirm_cancel_title">Batalkan Laporan?</string>
+    <string name="confirm_cancel_message">Data yang sudah diisi akan hilang. Apakah Anda yakin?</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

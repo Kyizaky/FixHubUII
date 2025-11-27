@@ -24,36 +24,53 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/tvGreeting"
+                <!-- Text Section -->
+                <LinearLayout
+                    android:id="@+id/headerText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Selamat Datang"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:textStyle="normal" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvUsername"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ikky"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="4dp" />
+                    <TextView
+                        android:id="@+id/tvGreeting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Selamat Datang"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp" />
 
+                    <TextView
+                        android:id="@+id/tvUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ikky"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
 
+                <!-- Settings Icon -->
+                <ImageView
+                    android:id="@+id/btnSettings"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="Settings"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_pengaturan"
+                    android:tint="#FFFFFF" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
 
         <!-- Quick Actions -->
         <TextView
@@ -142,7 +159,7 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/ic_report"
+                        android:src="@drawable/ic_leaf"
                         android:tint="#4CAF50"
                         tools:ignore="UseAppTint" />
 
@@ -302,12 +319,11 @@
 
         </LinearLayout>
 
-        <!-- Laporan Terbaru Section -->
         <TextView
             android:id="@+id/tvLaporanTerbaru"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Laporan Terbaru"
+            android:text="Laporan terbaru yang diajukan"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#333333"
@@ -315,9 +331,6 @@
             app:layout_constraintTop_toBottomOf="@id/layoutStatusCards"
             app:layout_constraintStart_toStartOf="parent" />
 
-
-
-        <!-- RecyclerView untuk Laporan Terbaru -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvLaporanTerbaru"
             android:layout_width="match_parent"

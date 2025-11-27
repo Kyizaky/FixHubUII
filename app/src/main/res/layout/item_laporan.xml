@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Icon Status -->
+        <ImageView
+            android:id="@+id/ivStatusIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_priority_berat"
+            android:background="@drawable/bg_icon_circle"
+            android:padding="10dp"
+            android:tint="#FF5722"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseAppTint" />
+
+        <!-- Kode Laporan -->
+        <TextView
+            android:id="@+id/tvKodeLaporan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="LP-2024-001"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginStart="12dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@id/ivStatusIcon"
+            app:layout_constraintEnd_toStartOf="@id/chipStatus"
+            app:layout_constraintTop_toTopOf="@id/ivStatusIcon" />
+
+        <!-- Nama Barang -->
+        <TextView
+            android:id="@+id/tvNamaBarang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Komputer Lab 1"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@id/ivStatusIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvKodeLaporan" />
+
+        <!-- Status Chip -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menunggu"
+            android:textSize="11sp"
+            android:textColor="#FF9800"
+            app:chipBackgroundColor="#FFF3E0"
+            app:chipStrokeWidth="0dp"
+            app:chipMinHeight="28dp"
+            style="@style/Widget.Material3.Chip.Assist"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivStatusIcon" />
+
+        <!-- Deskripsi Kerusakan -->
+        <TextView
+            android:id="@+id/tvDeskripsi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Monitor tidak menyala dan CPU berbunyi beep"
+            android:textSize="13sp"
+            android:textColor="#555555"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <!-- Info Container -->
+        <LinearLayout
+            android:id="@+id/layoutInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDeskripsi">
+
+            <!-- Tanggal -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_calendar"
+                    android:tint="#999999"
+                    tools:ignore="UseAppTint" />
+
+                <TextView
+                    android:id="@+id/tvTanggal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="27 Nov 2024"
+                    android:textSize="12sp"
+                    android:textColor="#999999"
+                    android:layout_marginStart="6dp" />
+
+            </LinearLayout>
+
+            <!-- Lokasi -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_location"
+                    android:tint="#999999"
+                    tools:ignore="UseAppTint" />
+
+                <TextView
+                    android:id="@+id/tvLokasi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lab Komputer 1"
+                    android:textSize="12sp"
+                    android:textColor="#999999"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_marginStart="6dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
