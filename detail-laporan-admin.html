@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Laporan - Admin</title>
+    <link rel="stylesheet" href="css/detail-laporan-admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">📝 Admin Panel</div>
+        <a href="home-admin.html" class="menu-item">📊 Dashboard</a>
+        <a href="riwayat-laporan-admin.html" class="menu-item">📋 Semua Laporan</a>
+        <a href="statistik-admin.html" class="menu-item">📈 Statistik</a>
+        <a href="pengaturan-admin.html" class="menu-item">⚙️ Pengaturan</a>
+        <a href="login.html" class="menu-item" style="margin-top: auto;">🚪 Logout</a>
+    </div>
+
+    <div class="main-content">
+        <button class="back-btn" onclick="window.history.back()">← Kembali</button>
+
+        <div class="header-card">
+            <div class="header-top">
+                <div class="header-left">
+                    <div class="report-code">LP-2025-001</div>
+                    <div class="report-date">Dilaporkan pada 27 November 2025, 10:30 WIB</div>
+                </div>
+                <div class="header-actions">
+                    <div class="status-text menunggu">Menunggu persetujuan</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-layout">
+            <div class="left-content">
+                <div class="content-section">
+                    <div class="section-title">📦 Informasi Barang</div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon">🏷️</div>
+                            <div class="info-content">
+                                <div class="info-label">Nama Barang</div>
+                                <div class="info-value">Komputer Lab 1</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📂</div>
+                            <div class="info-content">
+                                <div class="info-label">Kategori</div>
+                                <div class="info-value">Komputer & Laptop</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Lokasi</div>
+                                <div class="info-value">Fakultas Teknik - Gedung A - R.101</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <div class="section-title">🔧 Detail Kerusakan</div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon">⚠️</div>
+                            <div class="info-content">
+                                <div class="info-label">Tingkat Kerusakan</div>
+                                <div class="info-value" style="color: #FF9800;">Sedang</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📅</div>
+                            <div class="info-content">
+                                <div class="info-label">Tanggal Kejadian</div>
+                                <div class="info-value">25 November 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px; padding: 16px; background: #f8f9fa; border-radius: 12px;">
+                        <div class="info-label" style="margin-bottom: 8px;">Deskripsi Kerusakan</div>
+                        <div style="color: #555; line-height: 1.7; font-size: 14px;">
+                            Monitor tidak menyala dan CPU berbunyi beep berulang kali. Sudah dicoba restart namun masalah masih berlanjut.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <div class="section-title">📷 Foto Kerusakan</div>
+                    <div class="images-grid">
+                        <div class="image-item">
+                            <img src="img/funny.jpg" alt="Foto 1">
+                        </div>
+                        <div class="image-item">
+                            <img src="img/funny.jpg" alt="Foto 2">
+                        </div>
+                        <div class="image-item">
+                            <img src="img/funny.jpg" alt="Foto 3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <div class="section-title">📋 Riwayat Status</div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-status">Laporan Diterima</div>
+                                <div class="timeline-date">27 November 2025, 10:30 WIB</div>
+                                <div class="timeline-desc">Laporan telah diterima sistem</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-line"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-status">Menunggu Verifikasi</div>
+                                <div class="timeline-date">27 November 2025, 10:35 WIB</div>
+                                <div class="timeline-desc">Menunggu verifikasi dari admin</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-sidebar">
+                <div class="action-card">
+                    <div class="action-title">⚡ Aksi Cepat</div>
+                    <div class="btn-group">
+                        <button class="btn btn-approve" onclick="showApproveModal()">
+                            ✅ Setujui Laporan
+                        </button>
+                        <button class="btn btn-reject" onclick="showRejectModal()">
+                            ❌ Tolak Laporan
+                        </button>
+                    </div>
+                </div>
+
+                <div class="action-card">
+                    <div class="action-title">👤 Informasi Pelapor</div>
+                    <div class="pelapor-card">
+                        <div class="pelapor-avatar">Ik</div>
+                        <div class="pelapor-info">
+                            <h4>Ikky</h4>
+                            <p>Ikky@user.com</p>
+                            <p>082171718281</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Approve Modal -->
+    <div class="modal" id="approveModal">
+        <div class="modal-content">
+            <div class="modal-title">✅ Setujui Laporan</div>
+            <p style="color: #666; margin-bottom: 20px;">Apakah Anda yakin ingin menyetujui laporan ini?</p>
+            <div class="form-group">
+                <label class="form-label">Catatan (Opsional)</label>
+                <textarea class="form-textarea" placeholder="Tambahkan catatan..."></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('approveModal')">Batal</button>
+                <button class="btn-confirm" onclick="confirmApprove()">Setujui</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Modal -->
+    <div class="modal" id="rejectModal">
+        <div class="modal-content">
+            <div class="modal-title">❌ Tolak Laporan</div>
+            <p style="color: #666; margin-bottom: 20px;">Berikan alasan penolakan:</p>
+            <div class="form-group">
+                <label class="form-label">Alasan Penolakan *</label>
+                <textarea class="form-textarea" placeholder="Jelaskan alasan penolakan..." required></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('rejectModal')">Batal</button>
+                <button class="btn-confirm" onclick="confirmReject()">Tolak Laporan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showApproveModal() {
+            document.getElementById('approveModal').classList.add('active');
+        }
+
+        function showRejectModal() {
+            document.getElementById('rejectModal').classList.add('active');
+        }
+
+        function showAssignModal() {
+            document.getElementById('assignModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function confirmApprove() {
+            alert('Laporan berhasil disetujui!');
+            closeModal('approveModal');
+        }
+
+        function confirmReject() {
+            alert('Laporan berhasil ditolak!');
+            closeModal('rejectModal');
+        }
+
+        function confirmAssign() {
+            alert('Teknisi berhasil di-assign!');
+            closeModal('assignModal');
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

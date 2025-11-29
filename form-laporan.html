@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pelaporan Kerusakan</title>
+    <link rel="stylesheet" href="css/form-laporan.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header-card">
+            <h1>📝 Form Pelaporan</h1>
+            <p>Laporkan kerusakan barang dengan lengkap</p>
+        </div>
+
+        <!-- Form -->
+        <form id="laporanForm">
+            <div class="form-card">
+                <!-- Nama Barang -->
+                <div class="form-group">
+                    <label class="form-label">Nama Barang <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="namaBarang" placeholder="Masukkan nama barang" required>
+                    <div class="error-message">Nama barang harus diisi</div>
+                </div>
+
+                <!-- Kategori -->
+                <div class="form-group">
+                    <label class="form-label">Kategori Barang <span class="required">*</span></label>
+                    <select class="form-select" id="kategori" required>
+                        <option value="">Pilih kategori</option>
+                        <option value="elektronik">Elektronik</option>
+                        <option value="furniture">Furniture</option>
+                        <option value="kendaraan">Kendaraan</option>
+                        <option value="komputer">Komputer & Laptop</option>
+                        <option value="printer">Printer & Scanner</option>
+                        <option value="proyektor">Proyektor</option>
+                        <option value="ac">AC & Pendingin</option>
+                        <option value="lab">Alat Laboratorium</option>
+                        <option value="olahraga">Alat Olahraga</option>
+                        <option value="lainnya">Lainnya</option>
+                    </select>
+                    <div class="error-message">Kategori harus dipilih</div>
+                </div>
+
+                <!-- Tipe Lokasi -->
+                <div class="form-group">
+                    <label class="form-label">Tipe Lokasi <span class="required">*</span></label>
+                    <div class="toggle-container">
+                        <button type="button" class="toggle-btn active" onclick="setLokasiType('indoor')">Indoor</button>
+                        <button type="button" class="toggle-btn" onclick="setLokasiType('outdoor')">Outdoor</button>
+                    </div>
+                </div>
+
+                <!-- Indoor Fields -->
+                <div id="indoorFields">
+                    <div class="form-group">
+                        <label class="form-label">Fakultas <span class="required">*</span></label>
+                        <select class="form-select" id="fakultas">
+                            <option value="">Pilih fakultas</option>
+                            <option value="teknik">Fakultas Teknik</option>
+                            <option value="ekonomi">Fakultas Ekonomi dan Bisnis</option>
+                            <option value="ilkom">Fakultas Ilmu Komputer</option>
+                            <option value="kedokteran">Fakultas Kedokteran</option>
+                            <option value="hukum">Fakultas Hukum</option>
+                            <option value="fisip">Fakultas Ilmu Sosial dan Politik</option>
+                            <option value="pertanian">Fakultas Pertanian</option>
+                            <option value="mipa">Fakultas MIPA</option>
+                            <option value="psikologi">Fakultas Psikologi</option>
+                            <option value="seni">Fakultas Seni dan Desain</option>
+                        </select>
+                        <div class="error-message">Fakultas harus dipilih</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Gedung <span class="required">*</span></label>
+                        <select class="form-select" id="gedung">
+                            <option value="">Pilih gedung</option>
+                            <option value="a">Gedung A</option>
+                            <option value="b">Gedung B</option>
+                            <option value="c">Gedung C</option>
+                            <option value="d">Gedung D</option>
+                            <option value="e">Gedung E</option>
+                            <option value="rektorat">Gedung Rektorat</option>
+                            <option value="perpustakaan">Gedung Perpustakaan</option>
+                            <option value="lab">Gedung Lab</option>
+                            <option value="dekanat">Gedung Dekanat</option>
+                            <option value="auditorium">Gedung Auditorium</option>
+                        </select>
+                        <div class="error-message">Gedung harus dipilih</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Ruangan <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="ruangan" placeholder="Contoh: R.101">
+                        <div class="error-message">Ruangan harus diisi</div>
+                    </div>
+                </div>
+
+                <!-- Outdoor Fields -->
+                <div id="outdoorFields" class="hidden">
+                    <div class="form-group">
+                        <label class="form-label">Lokasi Barang <span class="required">*</span></label>
+                        <textarea class="form-textarea" id="lokasiOutdoor" placeholder="Contoh: Parkiran Gedung A, Lapangan Basket, dll" rows="3"></textarea>
+                        <div class="error-message">Lokasi barang harus diisi</div>
+                    </div>
+                </div>
+
+                <!-- Tingkat Kerusakan -->
+                <div class="form-group">
+                    <label class="form-label">Tingkat Kerusakan <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="tingkatKerusakan" value="ringan" id="ringan">
+                            <label for="ringan">Ringan - Masih dapat digunakan</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="tingkatKerusakan" value="sedang" id="sedang">
+                            <label for="sedang">Sedang - Perlu perbaikan segera</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="tingkatKerusakan" value="berat" id="berat">
+                            <label for="berat">Berat - Tidak dapat digunakan</label>
+                        </div>
+                    </div>
+                    <div class="error-message">Tingkat kerusakan harus dipilih</div>
+                </div>
+
+                <!-- Deskripsi -->
+                <div class="form-group">
+                    <label class="form-label">Deskripsi Kerusakan <span class="required">*</span></label>
+                    <textarea class="form-textarea" id="deskripsi" placeholder="Jelaskan kerusakan secara detail" maxlength="500" oninput="updateCharCount()"></textarea>
+                    <div class="char-count"><span id="charCount">0</span>/500</div>
+                    <div class="error-message">Deskripsi kerusakan harus diisi</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Tanggal laporan <span class="required">*</span></label>
+                    <input type="date" class="form-input" id="tanggal" required>
+                    <div class="error-message">Tanggal laporan harus dipilih</div>
+                </div>
+
+                <!-- Upload Foto -->
+                <div class="form-group">
+                    <label class="form-label">Foto Kerusakan (Opsional)</label>
+                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                        <div class="upload-icon">📷</div>
+                        <div class="upload-text">Klik untuk upload foto</div>
+                        <div class="upload-hint">Maksimal 3 foto (JPG, PNG, max 5MB)</div>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/*" multiple style="display: none" onchange="handleFileSelect(event)">
+                    <div class="image-preview-container" id="imagePreview"></div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="form-card">
+                <div class="button-group">
+                    <button type="button" class="btn btn-cancel" onclick="confirmCancel()">Batal</button>
+                    <button type="submit" class="btn btn-submit" id="submitBtn">Kirim Laporan</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Mengirim laporan...</p>
+        </div>
+    </div>
+
+    <script>
+        let isIndoor = true;
+        let selectedFiles = [];
+        const maxFiles = 3;
+
+        // Set max date to today
+        document.getElementById('tanggal').max = new Date().toISOString().split('T')[0];
+
+        function setLokasiType(type) {
+            isIndoor = (type === 'indoor');
+            
+            // Update button styles
+            const buttons = document.querySelectorAll('.toggle-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Toggle fields visibility
+            const indoorFields = document.getElementById('indoorFields');
+            const outdoorFields = document.getElementById('outdoorFields');
+            
+            if (isIndoor) {
+                indoorFields.classList.remove('hidden');
+                outdoorFields.classList.add('hidden');
+                // Clear outdoor field
+                document.getElementById('lokasiOutdoor').value = '';
+            } else {
+                indoorFields.classList.add('hidden');
+                outdoorFields.classList.remove('hidden');
+                // Clear indoor fields
+                document.getElementById('fakultas').value = '';
+                document.getElementById('gedung').value = '';
+                document.getElementById('ruangan').value = '';
+            }
+        }
+
+        function updateCharCount() {
+            const textarea = document.getElementById('deskripsi');
+            const charCount = document.getElementById('charCount');
+            charCount.textContent = textarea.value.length;
+        }
+
+        function handleFileSelect(event) {
+            const files = Array.from(event.target.files);
+            
+            if (selectedFiles.length + files.length > maxFiles) {
+                alert(`Maksimal ${maxFiles} foto yang dapat diupload`);
+                return;
+            }
+            
+            files.forEach(file => {
+                if (file.size > 5 * 1024 * 1024) {
+                    alert(`File ${file.name} terlalu besar. Maksimal 5MB`);
+                    return;
+                }
+                
+                selectedFiles.push(file);
+                displayImagePreview(file);
+            });
+            
+            // Reset input
+            event.target.value = '';
+        }
+
+        function displayImagePreview(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const container = document.getElementById('imagePreview');
+                const index = selectedFiles.indexOf(file);
+                
+                const previewDiv = document.createElement('div');
+                previewDiv.className = 'image-preview';
+                previewDiv.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview">
+                    <button type="button" class="remove-image" onclick="removeImage(${index})">×</button>
+                `;
+                
+                container.appendChild(previewDiv);
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        function removeImage(index) {
+            selectedFiles.splice(index, 1);
+            
+            // Rebuild preview
+            const container = document.getElementById('imagePreview');
+            container.innerHTML = '';
+            selectedFiles.forEach(file => displayImagePreview(file));
+        }
+
+        function validateForm() {
+            let isValid = true;
+            
+            // Remove all error states
+            document.querySelectorAll('.form-group').forEach(group => {
+                group.classList.remove('error');
+            });
+            
+            // Validate Nama Barang
+            if (!document.getElementById('namaBarang').value.trim()) {
+                document.getElementById('namaBarang').closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate Kategori
+            if (!document.getElementById('kategori').value) {
+                document.getElementById('kategori').closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate Location based on type
+            if (isIndoor) {
+                if (!document.getElementById('fakultas').value) {
+                    document.getElementById('fakultas').closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                if (!document.getElementById('gedung').value) {
+                    document.getElementById('gedung').closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                if (!document.getElementById('ruangan').value.trim()) {
+                    document.getElementById('ruangan').closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+            } else {
+                if (!document.getElementById('lokasiOutdoor').value.trim()) {
+                    document.getElementById('lokasiOutdoor').closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+            }
+            
+            // Validate Tingkat Kerusakan
+            if (!document.querySelector('input[name="tingkatKerusakan"]:checked')) {
+                document.querySelector('.radio-group').closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate Deskripsi
+            if (!document.getElementById('deskripsi').value.trim()) {
+                document.getElementById('deskripsi').closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate Tanggal
+            if (!document.getElementById('tanggal').value) {
+                document.getElementById('tanggal').closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        function confirmCancel() {
+            if (confirm('Data yang sudah diisi akan hilang. Apakah Anda yakin?')) {
+                window.history.back();
+                // Or: window.location.href = '/home';
+            }
+        }
+
+        document.getElementById('laporanForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                alert('Mohon lengkapi semua field yang wajib diisi');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('loadingOverlay').classList.add('active');
+            document.getElementById('submitBtn').disabled = true;
+            
+            // Collect form data
+            const formData = new FormData();
+            formData.append('namaBarang', document.getElementById('namaBarang').value);
+            formData.append('kategori', document.getElementById('kategori').value);
+            formData.append('tipelokasi', isIndoor ? 'indoor' : 'outdoor');
+            
+            if (isIndoor) {
+                formData.append('fakultas', document.getElementById('fakultas').value);
+                formData.append('gedung', document.getElementById('gedung').value);
+                formData.append('ruangan', document.getElementById('ruangan').value);
+            } else {
+                formData.append('lokasi', document.getElementById('lokasiOutdoor').value);
+            }
+            
+            formData.append('tingkatKerusakan', document.querySelector('input[name="tingkatKerusakan"]:checked').value);
+            formData.append('deskripsi', document.getElementById('deskripsi').value);
+            formData.append('tanggal', document.getElementById('tanggal').value);
+            formData.append('prioritas', document.getElementById('prioritas').checked);
+            
+            // Append files
+            selectedFiles.forEach((file, index) => {
+                formData.append(`foto${index}`, file);
+            });
+            
+            // Simulate API call
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.remove('active');
+                document.getElementById('submitBtn').disabled = false;
+                
+                alert('Laporan berhasil dikirim!\n\nKode Laporan: LP-2024-' + Math.floor(Math.random() * 1000));
+                
+                // TODO: Replace with actual API call
+                // try {
+                //     const response = await fetch('/api/laporan', {
+                //         method: 'POST',
+                //         body: formData
+                //     });
+                //     const result = await response.json();
+                //     alert('Laporan berhasil dikirim!\nKode: ' + result.kode);
+                //     window.location.href = '/home';
+                // } catch (error) {
+                //     alert('Gagal mengirim laporan: ' + error.message);
+                // }
+                
+                window.history.back();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

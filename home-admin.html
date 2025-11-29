@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin</title>
+    <link rel="stylesheet" href="css/home-admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">📝 Admin Panel</div>
+            <a href="home-admin.html" class="menu-item active">📊 Dashboard</a>
+            <a href="riwayat-laporan-admin.html" class="menu-item">📋 Semua Laporan</a>
+            <a href="statistik-admin.html" class="menu-item">📈 Statistik</a>
+            <a href="pengaturan-admin.html" class="menu-item">⚙️ Pengaturan</a>
+            <a href="login.html" class="menu-item" style="margin-top: auto;">🚪 Logout</a>
+    </div>
+
+    </div>
+
+    <div class="main-content">
+        <div class="topbar">
+            <h1>Dashboard</h1>
+            <div class="topbar-right">
+                <button class="notification-btn">
+                    🔔
+                    <span class="notification-badge">5</span>
+                </button>
+                <div class="admin-info">
+                    <div>
+                        <div style="font-weight: 600; color: #333; font-size: 14px;">Ikky admin</div>
+                        <div style="font-size: 12px; color: #999;">ikky@Admin.com</div>
+                    </div>
+                    <div class="admin-avatar">Ik</div>
+                </div>
+            </div>
+        </div>  
+
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-number" id="totalReports">0</div>
+                        <div class="stat-label">Total Laporan</div>
+                        <div class="stat-change up">↑ 12% bulan ini</div>
+                    </div>
+                    <div class="stat-icon total">📊</div>
+                </div>
+            </div>
+
+            <div class="stat-card pending">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-number" id="pendingReports">0</div>
+                        <div class="stat-label">Menunggu</div>
+                        <div class="stat-change up">↑ 5 laporan baru</div>
+                    </div>
+                    <div class="stat-icon pending">⏳</div>
+                </div>
+            </div>
+
+            <div class="stat-card process">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-number" id="processReports">0</div>
+                        <div class="stat-label">Diproses</div>
+                        <div class="stat-change">→ Stabil</div>
+                    </div>
+                    <div class="stat-icon process">🔄</div>
+                </div>
+            </div>
+
+            <div class="stat-card done">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-number" id="doneReports">0</div>
+                        <div class="stat-label">Selesai</div>
+                        <div class="stat-change up">↑ 18% bulan ini</div>
+                    </div>
+                    <div class="stat-icon done">✅</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Laporan Terbaru</div>
+                    <div class="view-all">Lihat Semua →</div>
+                </div>
+                <div id="recentReports">
+                    <!-- Reports will be loaded here -->
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Aktivitas Terbaru</div>
+                </div>
+                <div id="recentActivities">
+                    <!-- Activities will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const statsData = { total: 156, pending: 23, process: 15, done: 118 };
+        
+        const reportsData = [
+            { code: 'LP-2024-025', title: 'Komputer Lab tidak menyala', status: 'pending', time: '10 menit yang lalu', priority: true },
+            { code: 'LP-2024-024', title: 'AC Ruang Meeting rusak', status: 'process', time: '1 jam yang lalu', priority: false },
+            { code: 'LP-2024-023', title: 'Proyektor blur', status: 'pending', time: '2 jam yang lalu', priority: false },
+            { code: 'LP-2024-022', title: 'Kursi kantor patah', status: 'done', time: '3 jam yang lalu', priority: false }
+        ];
+
+        const activitiesData = [
+            { icon: 'new', type: '📝', text: 'Laporan baru dari Ikky', time: '5 menit yang lalu' },
+            { icon: 'update', type: '🔄', text: 'Status LP-2024-024 diupdate', time: '15 menit yang lalu' },
+            { icon: 'complete', type: '✅', text: 'LP-2024-022 selesai diperbaiki', time: '1 jam yang lalu' },
+            { icon: 'new', type: '📝', text: 'Laporan baru dari Ikky', time: '2 jam yang lalu' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            animateStats();
+            loadReports();
+            loadActivities();
+        });
+
+        function animateStats() {
+            Object.keys(statsData).forEach(key => {
+                const element = document.getElementById(`${key}Reports`);
+                animateNumber(element, statsData[key]);
+            });
+        }
+
+        function animateNumber(element, target) {
+            const duration = 1000;
+            const steps = 30;
+            const increment = target / steps;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, duration / steps);
+        }
+
+        function loadReports() {
+            const container = document.getElementById('recentReports');
+            reportsData.forEach(report => {
+                const div = document.createElement('div');
+                div.className = 'report-item';
+                div.onclick = () => {
+                    window.location.href = `detail-laporan-admin.html?code=${report.code}`;
+                };
+                div.innerHTML = `
+                    <div class="report-header">
+                        <span class="report-code">${report.code}</span>
+                        <span class="status-badge ${report.status}">${getStatusText(report.status)}</span>
+                    </div>
+                    <div class="report-title">${report.title} ${report.priority ? '⚡' : ''}</div>
+                    <div class="report-meta">📅 ${report.time}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function loadActivities() {
+            const container = document.getElementById('recentActivities');
+            activitiesData.forEach(activity => {
+                const div = document.createElement('div');
+                div.className = 'activity-item';
+                div.innerHTML = `
+                    <div class="activity-icon ${activity.icon}">${activity.type}</div>
+                    <div class="activity-content">
+                        <div class="activity-text">${activity.text}</div>
+                        <div class="activity-time">${activity.time}</div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function getStatusText(status) {
+            const map = { pending: 'Menunggu', process: 'Diproses', done: 'Selesai' };
+            return map[status] || status;
+        }
+    </script>
+</body>
+</html>

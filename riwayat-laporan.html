@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Laporan</title>
+    <link rel="stylesheet" href="css/riwayat-laporan.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📋 Riwayat Laporan</h1>
+        </div>
+
+        <div class="stats-overview">
+            <div class="stat-card total">
+                <div class="stat-number" id="totalLaporan">0</div>
+                <div class="stat-label">Total Laporan</div>
+            </div>
+            <div class="stat-card menunggu">
+                <div class="stat-number" id="totalMenunggu">0</div>
+                <div class="stat-label">Menunggu</div>
+            </div>
+            <div class="stat-card diproses">
+                <div class="stat-number" id="totalDiproses">0</div>
+                <div class="stat-label">Diproses</div>
+            </div>
+            <div class="stat-card selesai">
+                <div class="stat-number" id="totalSelesai">0</div>
+                <div class="stat-label">Selesai</div>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-chips">
+                <div class="chip active" data-filter="semua" onclick="filterByStatus('semua')">Semua</div>
+                <div class="chip" data-filter="menunggu" onclick="filterByStatus('menunggu')">Menunggu</div>
+                <div class="chip" data-filter="diproses" onclick="filterByStatus('diproses')">Diproses</div>
+                <div class="chip" data-filter="selesai" onclick="filterByStatus('selesai')">Selesai</div>
+                <div class="chip" data-filter="ditolak" onclick="filterByStatus('ditolak')">Ditolak</div>
+            </div>
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Cari laporan..." oninput="searchReports()">
+        </div>
+
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="color: #999;">Memuat data...</p>
+        </div>
+
+        <div class="reports-grid" id="reportsGrid">
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-icon">📭</div>
+            <div class="empty-title">Tidak Ada Laporan</div>
+            <div class="empty-text" id="emptyMessage">Belum ada laporan yang dibuat</div>
+        </div>
+    </div>
+
+    <script>
+        // Data dummy
+        let allReports = [
+            {
+                id: 1,
+                code: "LP-2024-001",
+                title: "Komputer Lab 1",
+                category: "Komputer & Laptop",
+                description: "Monitor tidak menyala dan CPU berbunyi beep berulang kali. Sudah dicoba restart namun masalah tetap berlanjut.",
+                status: "menunggu",
+                date: "27 Nov 2024",
+                location: "Fakultas Teknik - Gedung A - R.101"
+            },
+            {
+                id: 2,
+                code: "LP-2024-002",
+                title: "Proyektor Ruang Meeting",
+                category: "Proyektor",
+                description: "Proyektor tidak dapat menampilkan gambar dengan jelas, tampilan blur dan warna tidak akurat.",
+                status: "diproses",
+                date: "26 Nov 2024",
+                location: "Gedung Rektorat - R.Meeting"
+            },
+            {
+                id: 3,
+                code: "LP-2024-003",
+                title: "AC Ruang Kelas",
+                category: "AC & Pendingin",
+                description: "AC tidak dingin dan mengeluarkan bunyi aneh seperti berderit. Perlu segera diperbaiki.",
+                status: "selesai",
+                date: "25 Nov 2024",
+                location: "Fakultas MIPA - Gedung B - R.205"
+            },
+            {
+                id: 4,
+                code: "LP-2024-004",
+                title: "Kursi Kantor Rusak",
+                category: "Furniture",
+                description: "Kursi kantor tidak bisa diatur tingginya dan roda rusak.",
+                status: "menunggu",
+                date: "24 Nov 2024",
+                location: "Fakultas Ekonomi - Gedung C - R.301"
+            },
+            {
+                id: 5,
+                code: "LP-2024-005",
+                title: "Printer Canon",
+                category: "Printer & Scanner",
+                description: "Printer error dan tidak bisa mencetak. Indikator lampu berkedip merah.",
+                status: "diproses",
+                date: "23 Nov 2024",
+                location: "Gedung Perpustakaan - Lantai 2"
+            },
+            {
+                id: 6,
+                code: "LP-2024-006",
+                title: "Whiteboard Kotor",
+                category: "Lainnya",
+                description: "Whiteboard sudah tidak bisa dibersihkan dengan baik, tulisan menempel.",
+                status: "selesai",
+                date: "22 Nov 2024",
+                location: "Fakultas Hukum - Gedung D - R.102"
+            }
+        ];
+
+        let currentFilter = 'semua';
+        let filteredReports = [...allReports];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadReports();
+            updateStats();
+        });
+
+        function loadReports() {
+            const grid = document.getElementById('reportsGrid');
+            const loading = document.getElementById('loading');
+            const emptyState = document.getElementById('emptyState');
+            
+            loading.classList.add('active');
+            grid.style.display = 'none';
+            emptyState.style.display = 'none';
+            
+            // Simulate API call
+            setTimeout(() => {
+                loading.classList.remove('active');
+                
+                if (filteredReports.length === 0) {
+                    emptyState.style.display = 'block';
+                    updateEmptyMessage();
+                } else {
+                    grid.style.display = 'grid';
+                    displayReports();
+                }
+            }, 800);
+        }
+
+        function displayReports() {
+            const grid = document.getElementById('reportsGrid');
+            grid.innerHTML = '';
+            
+            filteredReports.forEach(report => {
+                const card = createReportCard(report);
+                grid.appendChild(card);
+            });
+        }
+
+        function createReportCard(report) {
+            const card = document.createElement('div');
+            card.className = 'report-card';
+            card.onclick = () => navigateToDetail(report.id);
+            
+            card.innerHTML = `
+                <div class="report-header">
+                    <span class="report-code">${report.code}</span>
+                    <span class="status-badge ${report.status}">${getStatusText(report.status)}</span>
+                </div>
+                <div class="report-title">
+                    ${report.title}
+                </div>
+                <div class="report-description">${report.description}</div>
+                <div class="report-meta">
+                    <div class="meta-item">📅 ${report.date}</div>
+                    <div class="meta-item">📍 ${getShortLocation(report.location)}</div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'menunggu': 'Menunggu',
+                'diproses': 'Diproses',
+                'selesai': 'Selesai',
+                'ditolak': 'Ditolak'
+            };
+            return statusMap[status] || status;
+        }
+
+        function getShortLocation(location) {
+            return location.length > 20 ? location.substring(0, 20) + '...' : location;
+        }
+
+        function filterByStatus(status) {
+            currentFilter = status;
+            
+            document.querySelectorAll('.chip').forEach(chip => {
+                chip.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            applyFilters();
+        }
+
+        function searchReports() {
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const searchText = document.getElementById('searchBox').value.toLowerCase();
+            
+            filteredReports = allReports.filter(report => {
+                const matchStatus = currentFilter === 'semua' || report.status === currentFilter;
+                
+                const matchSearch = searchText === '' || 
+                    report.code.toLowerCase().includes(searchText) ||
+                    report.title.toLowerCase().includes(searchText) ||
+                    report.description.toLowerCase().includes(searchText) ||
+                    report.location.toLowerCase().includes(searchText);
+                
+                return matchStatus && matchSearch;
+            });
+            
+            loadReports();
+        }
+
+        function updateStats() {
+            const stats = {
+                total: allReports.length,
+                menunggu: allReports.filter(r => r.status === 'menunggu').length,
+                diproses: allReports.filter(r => r.status === 'diproses').length,
+                selesai: allReports.filter(r => r.status === 'selesai').length
+            };
+            
+            animateNumber('totalLaporan', stats.total);
+            animateNumber('totalMenunggu', stats.menunggu);
+            animateNumber('totalDiproses', stats.diproses);
+            animateNumber('totalSelesai', stats.selesai);
+        }
+
+        function animateNumber(elementId, targetNumber) {
+            const element = document.getElementById(elementId);
+            const duration = 1000;
+            const steps = 30;
+            const increment = targetNumber / steps;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= targetNumber) {
+                    element.textContent = targetNumber;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, duration / steps);
+        }
+
+        function updateEmptyMessage() {
+            const searchText = document.getElementById('searchBox').value;
+            const emptyMessage = document.getElementById('emptyMessage');
+            
+            if (currentFilter !== 'semua') {
+                emptyMessage.textContent = `Tidak ada laporan dengan status ${getStatusText(currentFilter)}`;
+            } else if (searchText) {
+                emptyMessage.textContent = `Tidak ada hasil untuk "${searchText}"`;
+            } else {
+                emptyMessage.textContent = 'Belum ada laporan yang dibuat';
+            }
+        }
+
+
+        function navigateToDetail(id) {
+            window.location.href = "detail-laporan-user.html"
+        }
+
+    </script>
+</body>
+</html>

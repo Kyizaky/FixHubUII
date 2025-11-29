@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard User - Fix Hub UII</title>
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <h1>Selamat Datang</h1>
+                <p id="currentDate">Loading...</p>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <div class="user-name" id="userName">Ikky</div>
+                </div>
+                <div class="user-avatar" id="userAvatar">MRR</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Menu Utama</h2>
+        <div class="quick-actions">
+            <div class="action-card lapor" onclick="navigateToForm()">
+                <div class="action-icon">📝</div>
+                <h3>Laporkan Kerusakan</h3>
+                <p>Buat laporan kerusakan barang baru</p>
+            </div>
+            <div class="action-card riwayat" onclick="navigateToHistory()">
+                <div class="action-icon">📋</div>
+                <h3>Riwayat Laporan</h3>
+                <p>Lihat semua laporan yang telah dibuat</p>
+            </div>
+        </div>
+
+        <div class="status-section">
+            <h2 class="section-title">Status Laporan</h2>
+            <div class="status-cards">
+                <div class="status-card menunggu">
+                    <div class="status-number" id="countMenunggu">0</div>
+                    <div class="status-label">Menunggu</div>
+                </div>
+                <div class="status-card diproses">
+                    <div class="status-number" id="countDiproses">0</div>
+                    <div class="status-label">Diproses</div>
+                </div>
+                <div class="status-card selesai">
+                    <div class="status-number" id="countSelesai">0</div>
+                    <div class="status-label">Selesai</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Reports -->
+        <div class="reports-section">
+            <div class="section-header">
+                <h2>Laporan Terbaru</h2>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="color: #999; margin-top: 16px;">Memuat data...</p>
+            </div>
+
+            <div id="reportsList">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data dummy
+        const userData = {
+            name: "Ikky",
+            email: "Mawl@example.com"
+        };
+
+        const reportsData = [
+            {
+                id: 1,
+                code: "LP-2024-001",
+                title: "Komputer Lab 1",
+                description: "Monitor tidak menyala dan CPU berbunyi beep berulang kali",
+                status: "menunggu",
+                date: "27 Nov 2024",
+                location: "Lab Komputer 1"
+            },
+            {
+                id: 2,
+                code: "LP-2024-002",
+                title: "Proyektor Ruang Meeting",
+                description: "Proyektor tidak dapat menampilkan gambar dengan jelas",
+                status: "diproses",
+                date: "26 Nov 2024",
+                location: "Ruang Meeting A"
+            },
+            {
+                id: 3,
+                code: "LP-2024-003",
+                title: "AC Ruang Kelas",
+                description: "AC tidak dingin dan berbunyi aneh",
+                status: "selesai",
+                date: "25 Nov 2024",
+                location: "Kelas 3A"
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            setCurrentDate();
+            setUserInfo();
+            loadReports();
+            updateStatusCounts();
+        }
+
+        function setCurrentDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date().toLocaleDateString('id-ID', options);
+            document.getElementById('currentDate').textContent = date;
+        }
+
+        function setUserInfo() {
+            const userName = document.getElementById('userName');
+            const userAvatar = document.getElementById('userAvatar');
+            
+            userName.textContent = userData.name;
+            
+            const initials = userData.name
+                .split(' ')
+                .map(word => word[0])
+                .join('')
+                .toUpperCase()
+                .substring(0, 2);
+            
+            userAvatar.textContent = initials;
+        }
+
+        function loadReports() {
+            const reportsList = document.getElementById('reportsList');
+            const loading = document.getElementById('loading');
+            
+            // Show loading
+            loading.classList.add('active');
+            reportsList.innerHTML = '';
+            
+            // Simulate API call
+            setTimeout(() => {
+                loading.classList.remove('active');
+                
+                if (reportsData.length === 0) {
+                    reportsList.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">📭</div>
+                            <div class="empty-text">Belum ada laporan</div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Display only terbaru 3 reports
+                const latestReports = reportsData.slice(0, 3);
+                
+                latestReports.forEach(report => {
+                    const reportItem = createReportItem(report);
+                    reportsList.appendChild(reportItem);
+                });
+            }, 800);
+        }
+
+        function createReportItem(report) {
+            const div = document.createElement('div');
+            div.className = 'report-item';
+            div.onclick = () => navigateToDetail(report.id);
+            
+            div.innerHTML = `
+                <div class="report-header">
+                    <span class="report-code">${report.code}</span>
+                    <span class="status-badge ${report.status}">${getStatusText(report.status)}</span>
+                </div>
+                <div class="report-title">
+                    ${report.title}
+                </div>
+                <div class="report-description">${report.description}</div>
+                <div class="report-footer">
+                    <span class="report-date">${report.date}</span>
+                    <span class="report-location">${report.location}</span>
+                </div>
+            `;
+            
+            return div;
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'menunggu': 'Menunggu',
+                'diproses': 'Diproses',
+                'selesai': 'Selesai'
+            };
+            return statusMap[status] || status;
+        }
+
+        function updateStatusCounts() {
+            const counts = {
+                menunggu: 0,
+                diproses: 0,
+                selesai: 0
+            };
+            
+            reportsData.forEach(report => {
+                if (counts.hasOwnProperty(report.status)) {
+                    counts[report.status]++;
+                }
+            });
+            
+            animateNumber('countMenunggu', counts.menunggu);
+            animateNumber('countDiproses', counts.diproses);
+            animateNumber('countSelesai', counts.selesai);
+        }
+
+        function animateNumber(elementId, targetNumber) {
+            const element = document.getElementById(elementId);
+            const duration = 1000;
+            const steps = 30;
+            const increment = targetNumber / steps;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= targetNumber) {
+                    element.textContent = targetNumber;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, duration / steps);
+        }
+
+        function navigateToForm() {
+            window.location.href = "form-laporan.html";
+        }
+
+        function navigateToHistory() {
+           window.location.href = "riwayat-laporan.html";
+        }
+
+        function navigateToDetail(id) {
+            window.location.href = "detail-laporan-user.html"
+        }
+
+    </script>
+</body>
+</html>

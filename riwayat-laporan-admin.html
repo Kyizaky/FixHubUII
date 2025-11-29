@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Laporan - Admin</title>
+    <link rel="stylesheet" href="css/riwayat-laporan-admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">📝 Admin Panel</div>
+            <a href="home-admin.html" class="menu-item">📊 Dashboard</a>
+            <a href="riwayat-laporan-admin.html" class="menu-item active">📋 Semua Laporan</a>
+            <a href="statistik-admin.html" class="menu-item">📈 Statistik</a>
+            <a href="pengaturan-admin.html" class="menu-item">⚙️ Pengaturan</a>
+            <a href="login.html" class="menu-item" style="margin-top: auto;">🚪 Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>📋 Semua Laporan</h1>
+            <div class="header-actions">
+                <button class="btn btn-secondary">📥 Export Excel</button>
+                <button class="btn btn-primary">📊 Laporan Statistik</button>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" style="color: #667eea;">156</div>
+                <div class="stat-label">Total Laporan</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" style="color: #FF9800;">23</div>
+                <div class="stat-label">Menunggu</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" style="color: #2196F3;">15</div>
+                <div class="stat-label">Diproses</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" style="color: #4CAF50;">118</div>
+                <div class="stat-label">Selesai</div>
+            </div>
+        </div>
+
+        <div class="filter-panel">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label class="filter-label">Status</label>
+                    <select class="filter-input" onchange="filterData()">
+                        <option value="">Semua Status</option>
+                        <option value="pending">Menunggu</option>
+                        <option value="process">Diproses</option>
+                        <option value="done">Selesai</option>
+                        <option value="rejected">Ditolak</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Kategori</label>
+                    <select class="filter-input" onchange="filterData()">
+                        <option value="">Semua Kategori</option>
+                        <option value="komputer">Komputer & Laptop</option>
+                        <option value="ac">AC & Pendingin</option>
+                        <option value="proyektor">Proyektor</option>
+                        <option value="furniture">Furniture</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Tanggal Dari</label>
+                    <input type="date" class="filter-input" onchange="filterData()">
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Tanggal Sampai</label>
+                    <input type="date" class="filter-input" onchange="filterData()">
+                </div>
+            </div>
+
+            <div class="filter-chips">
+                <div class="chip active" onclick="setChip(this, 'all')">Semua</div>
+                <div class="chip" onclick="setChip(this, 'today')">📅 Hari Ini</div>
+                <div class="chip" onclick="setChip(this, 'week')">📆 Minggu Ini</div>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="🔍 Cari kode laporan, nama barang, pelapor..." oninput="searchData()">
+                <button class="btn btn-primary" onclick="resetSearch()">Reset</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <div class="table-title">Daftar Laporan</div>
+                <div class="bulk-actions">
+                    <button class="btn btn-secondary" onclick="bulkApprove()">✅ Approve Selected</button>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" class="checkbox" onclick="toggleAll(this)"></th>
+                        <th>Kode</th>
+                        <th>Nama Barang</th>
+                        <th>Pelapor</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be loaded here -->
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <div class="pagination-info">Menampilkan 1-10 dari 156 laporan</div>
+                <div class="pagination-buttons">
+                    <button class="page-btn">«</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn">»</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reportsData = [
+            { id: 1, code: 'LP-2024-025', item: 'Komputer Lab 1', category: 'Komputer', reporter: 'Ikky', date: '27 Nov 2025', status: 'pending',},
+            { id: 2, code: 'LP-2024-024', item: 'AC Ruang Meeting', category: 'AC', reporter: 'reiky', date: '26 Nov 2025', status: 'process', },
+            { id: 3, code: 'LP-2024-023', item: 'Proyektor Kelas 3A', category: 'Proyektor', reporter: 'fath', date: '29 Nov 2025', status: 'done',},
+            { id: 4, code: 'LP-2024-022', item: 'Kursi Kantor', category: 'Furniture', reporter: 'tsaqib', date: '29 Nov 2025', status: 'pending',},
+            { id: 5, code: 'LP-2024-021', item: 'Printer Canon', category: 'Printer', reporter: 'caca', date: '25 Nov 2025', status: 'process',},
+            { id: 6, code: 'LP-2024-020', item: 'Whiteboard', category: 'Lainnya', reporter: 'Ikky', date: '24 Nov 2025', status: 'done',},
+            { id: 7, code: 'LP-2024-019', item: 'Laptop Lab 2', category: 'Komputer', reporter: 'Ikky', date: '24 Nov 2025', status: 'pending',},
+            { id: 8, code: 'LP-2024-018', item: 'AC Lab Komputer', category: 'AC', reporter: 'fath', date: '23 Nov 2025', status: 'process',},
+            { id: 9, code: 'LP-2024-017', item: 'Meja Lab', category: 'Furniture', reporter: 'caca', date: '23 Nov 2025', status: 'done',},
+            { id: 10, code: 'LP-2024-016', item: 'Proyektor Auditorium', category: 'Proyektor', reporter: 'caca', date: '22 Nov 2025', status: 'pending',}
+        ];
+
+        function loadTable(data = reportsData) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            data.forEach(report => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><input type="checkbox" class="checkbox" value="${report.id}"></td>
+                    <td><strong>${report.code}</strong></td>
+                    <td>${report.item}</td>
+                    <td>${report.reporter}</td>
+                    <td>${report.date}</td>
+                    <td><span class="status-badge ${report.status}">${getStatusText(report.status)}</span></td>
+                    <td>
+                        <button class="action-btn view" onclick="viewReport(${report.id})">👁️ Lihat</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+
+        function getStatusText(status) {
+            const map = {
+                pending: 'Menunggu',
+                process: 'Diproses',
+                done: 'Selesai',
+                rejected: 'Ditolak'
+            };
+            return map[status] || status;
+        }
+
+        function setChip(element, filter) {
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+
+            applyChipFilter(filter);
+        }
+
+
+        function filterData() {
+            const status = document.querySelector('select[onchange="filterData()"]').value;
+            const kategori = document.querySelectorAll('select[onchange="filterData()"]')[1].value;
+            const dateFrom = document.querySelectorAll('input[type="date"]')[0].value;
+            const dateTo = document.querySelectorAll('input[type="date"]')[1].value;
+
+            let filtered = reportsData;
+
+            // Filter status
+            if (status !== "") {
+                filtered = filtered.filter(r => r.status === status);
+            }
+
+            // Filter kategori
+            if (kategori !== "") {
+                filtered = filtered.filter(r => 
+                    r.category.toLowerCase().includes(kategori.toLowerCase())
+                );
+            }
+
+            // Filter tanggal
+            if (dateFrom !== "") {
+                filtered = filtered.filter(r => new Date(r.date) >= new Date(dateFrom));
+            }
+            if (dateTo !== "") {
+                filtered = filtered.filter(r => new Date(r.date) <= new Date(dateTo));
+            }
+
+            loadTable(filtered);
+        }
+
+        function searchData() {
+        const keyword = document.querySelector('.search-input').value.toLowerCase();
+
+        const filtered = reportsData.filter(r =>
+            r.code.toLowerCase().includes(keyword) ||
+            r.item.toLowerCase().includes(keyword) ||
+            r.reporter.toLowerCase().includes(keyword)
+        );
+
+        loadTable(filtered);
+    }
+
+        function resetSearch() {
+            // Reset dropdown status dan kategori
+            document.querySelector('select[onchange="filterData()"]').value = "";
+            document.querySelectorAll('select[onchange="filterData()"]')[1].value = "";
+
+            // Reset tanggal
+            document.querySelectorAll('input[type="date"]')[0].value = "";
+            document.querySelectorAll('input[type="date"]')[1].value = "";
+
+            // Reset search input
+            document.querySelector('.search-input').value = "";
+
+            // Reset chip (aktifkan chip 'Semua')
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            document.querySelector('.chip:nth-child(1)').classList.add('active');
+            loadTable(reportsData);
+        }
+
+        function toggleAll(checkbox) {
+            const checkboxes = document.querySelectorAll('tbody .checkbox');
+            checkboxes.forEach(cb => cb.checked = checkbox.checked);
+        }
+
+        function bulkApprove() {
+            const selected = getSelectedIds();
+            if (selected.length === 0) {
+                alert('Pilih minimal 1 laporan');
+                return;
+            }
+            alert(`Approve ${selected.length} laporan terpilih?`);
+        }
+
+       function applyChipFilter(type) {
+            let filtered = reportsData;
+            const today = new Date();
+
+            if (type === "today") {
+                filtered = reportsData.filter(r => {
+                    const d = new Date(r.date);
+                    return d.toDateString() === today.toDateString();
+                });
+            }
+
+            if (type === "week") {
+                const weekAgo = new Date();
+                weekAgo.setDate(today.getDate() - 7);
+
+                filtered = reportsData.filter(r => {
+                    const d = new Date(r.date);
+                    return d >= weekAgo && d <= today;
+                });
+            }
+
+            loadTable(filtered);
+        }
+
+
+        function getSelectedIds() {
+            const checkboxes = document.querySelectorAll('tbody .checkbox:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
+
+        function viewReport(id) {
+            window.location.href = "detail-laporan-admin.html";
+        }
+        document.addEventListener('DOMContentLoaded', () => loadTable(reportsData));
+
+    </script>
+</body>
+</html>
