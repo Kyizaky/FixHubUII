@@ -36,4 +36,9 @@
         <color name="text_secondary">#757575</color>
         <color name="text_light">#FFFFFF</color>
 
+        <color name="orange_light">#FFF3E0</color>
+        <color name="orange_500">#FB8C00</color>
+
+
+
 </resources>

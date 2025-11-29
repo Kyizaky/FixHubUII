@@ -22,7 +22,7 @@ class LoginFragment : Fragment() {
         val btnLogin = view.findViewById<View>(R.id.btnGoogleLogin)
 
         btnLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_homeAdminFragment)
         }
     }
 
