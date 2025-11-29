@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1>📋 Riwayat Laporan</h1>
         </div>
@@ -43,7 +42,6 @@
             <input type="text" class="search-box" id="searchBox" placeholder="🔍 Cari laporan..." oninput="searchReports()">
         </div>
 
-        <!-- Loading -->
         <div class="loading" id="loading">
             <div class="spinner"></div>
             <p style="color: #999;">Memuat data...</p>
@@ -52,7 +50,6 @@
         <div class="reports-grid" id="reportsGrid">
         </div>
 
-        <!-- Empty State -->
         <div class="empty-state" id="emptyState" style="display: none;">
             <div class="empty-icon">📭</div>
             <div class="empty-title">Tidak Ada Laporan</div>
@@ -61,7 +58,6 @@
     </div>
 
     <script>
-        // Data dummy
         let allReports = [
             {
                 id: 1,
@@ -70,7 +66,7 @@
                 category: "Komputer & Laptop",
                 description: "Monitor tidak menyala dan CPU berbunyi beep berulang kali. Sudah dicoba restart namun masalah tetap berlanjut.",
                 status: "menunggu",
-                date: "27 Nov 2024",
+                date: "27 Nov 2025",
                 location: "Fakultas Teknik - Gedung A - R.101"
             },
             {
@@ -142,7 +138,6 @@
             grid.style.display = 'none';
             emptyState.style.display = 'none';
             
-            // Simulate API call
             setTimeout(() => {
                 loading.classList.remove('active');
                 

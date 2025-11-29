@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
+        
         <div class="header">
             <div class="header-left">
                 <h1>Selamat Datang</h1>
@@ -62,8 +62,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Recent Reports -->
+        
         <div class="reports-section">
             <div class="section-header">
                 <h2>Laporan Terbaru</h2>
@@ -81,7 +80,7 @@
     </div>
 
     <script>
-        // Data dummy
+        
         const userData = {
             name: "Ikky",
             email: "Mawl@example.com"
@@ -154,11 +153,11 @@
             const reportsList = document.getElementById('reportsList');
             const loading = document.getElementById('loading');
             
-            // Show loading
+            
             loading.classList.add('active');
             reportsList.innerHTML = '';
             
-            // Simulate API call
+            
             setTimeout(() => {
                 loading.classList.remove('active');
                 
@@ -172,7 +171,7 @@
                     return;
                 }
                 
-                // Display only terbaru 3 reports
+                
                 const latestReports = reportsData.slice(0, 3);
                 
                 latestReports.forEach(report => {
@@ -185,7 +184,7 @@
         function createReportItem(report) {
             const div = document.createElement('div');
             div.className = 'report-item';
-            div.onclick = () => navigateToDetail(report.id);
+            div.onclick = () => navigateToDetail();
             
             div.innerHTML = `
                 <div class="report-header">
@@ -258,7 +257,7 @@
            window.location.href = "riwayat-laporan.html";
         }
 
-        function navigateToDetail(id) {
+        function navigateToDetail() {
             window.location.href = "detail-laporan-user.html";
         }
 
@@ -275,7 +274,7 @@
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Klik di luar untuk menutup dropdown
+        
         document.addEventListener('click', function(event) {
             const menu = document.getElementById('avatarMenu');
             const avatar = document.getElementById('userAvatar');

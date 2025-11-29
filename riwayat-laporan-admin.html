@@ -112,7 +112,7 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- Data will be loaded here -->
+                    
                 </tbody>
             </table>
 
@@ -192,19 +192,16 @@
 
             let filtered = reportsData;
 
-            // Filter status
             if (status !== "") {
                 filtered = filtered.filter(r => r.status === status);
             }
 
-            // Filter kategori
             if (kategori !== "") {
                 filtered = filtered.filter(r => 
                     r.category.toLowerCase().includes(kategori.toLowerCase())
                 );
             }
 
-            // Filter tanggal
             if (dateFrom !== "") {
                 filtered = filtered.filter(r => new Date(r.date) >= new Date(dateFrom));
             }
@@ -228,18 +225,14 @@
     }
 
         function resetSearch() {
-            // Reset dropdown status dan kategori
             document.querySelector('select[onchange="filterData()"]').value = "";
             document.querySelectorAll('select[onchange="filterData()"]')[1].value = "";
 
-            // Reset tanggal
             document.querySelectorAll('input[type="date"]')[0].value = "";
             document.querySelectorAll('input[type="date"]')[1].value = "";
 
-            // Reset search input
             document.querySelector('.search-input').value = "";
 
-            // Reset chip (aktifkan chip 'Semua')
             document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
             document.querySelector('.chip:nth-child(1)').classList.add('active');
             loadTable(reportsData);

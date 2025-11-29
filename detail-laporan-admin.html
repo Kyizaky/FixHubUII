@@ -170,7 +170,6 @@
         </div>
     </div>
 
-    <!-- Reject Modal -->
     <div class="modal" id="rejectModal">
         <div class="modal-content">
             <div class="modal-title">❌ Tolak Laporan</div>
@@ -195,10 +194,6 @@
             document.getElementById('rejectModal').classList.add('active');
         }
 
-        function showAssignModal() {
-            document.getElementById('assignModal').classList.add('active');
-        }
-
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
         }
@@ -211,11 +206,6 @@
         function confirmReject() {
             alert('Laporan berhasil ditolak!');
             closeModal('rejectModal');
-        }
-
-        function confirmAssign() {
-            alert('Teknisi berhasil di-assign!');
-            closeModal('assignModal');
         }
 
         window.onclick = function(event) {

@@ -23,7 +23,6 @@
         </div>
 
         <div class="content-grid">
-            <!-- Informasi Pribadi -->
             <div class="card">
                 <div class="card-title">👤 Informasi Pribadi</div>
                 <div class="success-message" id="successMessage">
@@ -49,7 +48,6 @@
                 </form>
             </div>
 
-            <!-- Ubah Password -->
             <div class="card">
                 <div class="card-title">🔒 Ubah Password</div>
                 <form id="passwordForm">
@@ -69,7 +67,6 @@
                 </form>
             </div>
 
-            <!-- Statistik (for User) -->
             <div class="card">
                 <div class="card-title">📊 Statistik Saya</div>
                 <div class="stat-item">
@@ -90,7 +87,6 @@
                 </div>
             </div>
 
-            <!-- Aktivitas Terakhir -->
             <div class="card">
                 <div class="card-title">📝 Aktivitas Terakhir</div>
                 <div class="activity-item">
@@ -122,19 +118,15 @@
         document.getElementById('profileForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Show success message
             const successMsg = document.getElementById('successMessage');
             successMsg.classList.add('show');
             
-            // Update header
             const newName = document.getElementById('fullName').value;
             document.getElementById('profileName').textContent = newName;
             
-            // Update avatar initials
             const initials = newName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
             document.getElementById('avatar').textContent = initials;
             
-            // Hide success message after 3 seconds
             setTimeout(() => {
                 successMsg.classList.remove('show');
             }, 3000);
@@ -165,7 +157,6 @@
         function resetForm() {
             document.getElementById('fullName').value = originalData.fullName;
             document.getElementById('phone').value = originalData.phone;
-            document.getElementById('department').value = originalData.department;
         }
 
         function handleAvatarChange(event) {
@@ -179,7 +170,6 @@
                     avatar.textContent = '';
                 };
                 reader.readAsDataURL(file);
-                
             }
         }
     </script>
