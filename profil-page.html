@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya</title>
+    <link rel="stylesheet" href="css/profil-page.css">
+</head>
+<body>
+    <div class="container">
+        <button class="back-btn" onclick="window.history.back()">← Kembali</button>
+
+        <div class="profile-header">
+            <div class="avatar-container">
+                <div class="avatar" id="avatar">Ikky</div>
+                <label class="avatar-upload">
+                    📷
+                    <input type="file" accept="image/*" onchange="handleAvatarChange(event)">
+                </label>
+            </div>
+            <div class="profile-name" id="profileName">Ikky</div>
+            <div class="profile-email" id="profileEmail">ikky@conth.com</div>
+        </div>
+
+        <div class="content-grid">
+            <!-- Informasi Pribadi -->
+            <div class="card">
+                <div class="card-title">👤 Informasi Pribadi</div>
+                <div class="success-message" id="successMessage">
+                    ✅ Profil berhasil diperbarui!
+                </div>
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label class="form-label">Nama Lengkap</label>
+                        <input type="text" class="form-input" id="fullName" value="Ikky">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="email" value="ikky@conth.com" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">No. Telepon</label>
+                        <input type="tel" class="form-input" id="phone" value="082172818928">
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+                        <button type="submit" class="btn btn-primary">💾 Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Ubah Password -->
+            <div class="card">
+                <div class="card-title">🔒 Ubah Password</div>
+                <form id="passwordForm">
+                    <div class="form-group">
+                        <label class="form-label">Password Lama</label>
+                        <input type="password" class="form-input" id="oldPassword" placeholder="Masukkan password lama">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password Baru</label>
+                        <input type="password" class="form-input" id="newPassword" placeholder="Masukkan password baru">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Konfirmasi Password</label>
+                        <input type="password" class="form-input" id="confirmPassword" placeholder="Konfirmasi password baru">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">🔑 Ubah Password</button>
+                </form>
+            </div>
+
+            <!-- Statistik (for User) -->
+            <div class="card">
+                <div class="card-title">📊 Statistik Saya</div>
+                <div class="stat-item">
+                    <div class="stat-label">Total Laporan</div>
+                    <div class="stat-value">12</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Menunggu</div>
+                    <div class="stat-value" style="color: #FF9800;">3</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Diproses</div>
+                    <div class="stat-value" style="color: #2196F3;">2</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Selesai</div>
+                    <div class="stat-value" style="color: #4CAF50;">7</div>
+                </div>
+            </div>
+
+            <!-- Aktivitas Terakhir -->
+            <div class="card">
+                <div class="card-title">📝 Aktivitas Terakhir</div>
+                <div class="activity-item">
+                    <div class="activity-title">Membuat laporan LP-2024-025</div>
+                    <div class="activity-time">2 jam yang lalu</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-title">Laporan LP-2024-024 selesai</div>
+                    <div class="activity-time">1 hari yang lalu</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-title">Memperbarui profil</div>
+                    <div class="activity-time">3 hari yang lalu</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-title">Membuat laporan LP-2024-023</div>
+                    <div class="activity-time">5 hari yang lalu</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const originalData = {
+            fullName: 'Ikky',
+            phone: '0829192129138'
+        };
+
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            
+            // Update header
+            const newName = document.getElementById('fullName').value;
+            document.getElementById('profileName').textContent = newName;
+            
+            // Update avatar initials
+            const initials = newName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+            document.getElementById('avatar').textContent = initials;
+            
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+            }, 3000);
+        });
+
+        document.getElementById('passwordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const oldPassword = document.getElementById('oldPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (newPassword !== confirmPassword) {
+                alert('Password baru dan konfirmasi password tidak cocok!');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                alert('Password minimal 6 karakter!');
+                return;
+            }
+            
+            alert('Password berhasil diubah!');
+            this.reset();
+            
+        });
+
+        function resetForm() {
+            document.getElementById('fullName').value = originalData.fullName;
+            document.getElementById('phone').value = originalData.phone;
+            document.getElementById('department').value = originalData.department;
+        }
+
+        function handleAvatarChange(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const avatar = document.getElementById('avatar');
+                    avatar.style.backgroundImage = `url(${e.target.result})`;
+                    avatar.style.backgroundSize = 'cover';
+                    avatar.textContent = '';
+                };
+                reader.readAsDataURL(file);
+                
+            }
+        }
+    </script>
+</body>
+</html>

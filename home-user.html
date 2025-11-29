@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard User - Fix Hub UII</title>
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/home-user.css">
 </head>
 <body>
     <div class="container">
@@ -18,7 +18,16 @@
                 <div class="user-info">
                     <div class="user-name" id="userName">Ikky</div>
                 </div>
-                <div class="user-avatar" id="userAvatar">MRR</div>
+                <div class="user-avatar-dropdown">
+                    <div class="user-avatar" id="userAvatar" onclick="toggleDropdown()">
+                        Ikky
+                    </div>
+                <div class="dropdown-menu" id="avatarMenu">
+                    <div class="dropdown-item" onclick="goToSettings()">⚙️ Pengaturan</div>
+                    <div class="dropdown-item" onclick="goToPage()">👤 Profil</div>
+                    <div class="dropdown-item" onclick="logout()">🚪 Logout</div>
+                </div>
+                </div>
             </div>
         </div>
 
@@ -250,9 +259,34 @@
         }
 
         function navigateToDetail(id) {
-            window.location.href = "detail-laporan-user.html"
+            window.location.href = "detail-laporan-user.html";
         }
 
+        function goToSettings() {
+            window.location.href = "pengaturan.html";
+        }
+
+        function goToPage() {
+            window.location.href = "profil-page.html";
+        }
+
+        function toggleDropdown() {
+            const menu = document.getElementById('avatarMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Klik di luar untuk menutup dropdown
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('avatarMenu');
+            const avatar = document.getElementById('userAvatar');
+            if (!avatar.contains(event.target) && !menu.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
+
+        function logout() {
+            window.location.href = "login.html";
+        }
     </script>
 </body>
 </html>

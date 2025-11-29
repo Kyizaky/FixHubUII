@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan</title>
+    <link rel="stylesheet" href="css/pengaturan.css">
+</head>
+<body>
+    <div class="container">
+        <button class="back-btn" onclick="window.history.back()">← Kembali</button>
+
+        <div class="header">
+            <h1>⚙️ Pengaturan</h1>
+            <p>Kelola preferensi dan pengaturan aplikasi Anda</p>
+        </div>
+
+        <!-- Tampilan -->
+        <div class="settings-card">
+            <div class="section-title">🎨 Tampilan</div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Tema</div>
+                    <div class="setting-desc">Pilih tema tampilan aplikasi</div>
+                </div>
+                <select class="setting-select" onchange="changeTheme(this.value)">
+                    <option value="light">Terang</option>
+                    <option value="dark">Gelap</option>
+                    <option value="auto">Otomatis</option>
+                </select>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Bahasa</div>
+                    <div class="setting-desc">Pilih bahasa tampilan</div>
+                </div>
+                <select class="setting-select" onchange="changeLanguage(this.value)">
+                    <option value="id" selected>Bahasa Indonesia</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Ukuran Font</div>
+                    <div class="setting-desc">Atur ukuran teks</div>
+                </div>
+                <select class="setting-select" onchange="changeFontSize(this.value)">
+                    <option value="small">Kecil</option>
+                    <option value="medium" selected>Sedang</option>
+                    <option value="large">Besar</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="success-toast" id="successToast">
+        ✅ Pengaturan berhasil disimpan!
+    </div>
+
+    <script>
+        function toggleSetting(setting) {
+            showToast();
+            console.log(`Toggle ${setting}`);
+            
+        }
+
+        function changeTheme(theme) {
+            showToast();
+            console.log(`Change theme to ${theme}`);
+            
+        }
+
+        function changeLanguage(lang) {
+            showToast();
+            console.log(`Change language to ${lang}`);
+            
+        }
+
+        function changeFontSize(size) {
+            showToast();
+            console.log(`Change font size to ${size}`);
+
+        }
+
+        function showToast() {
+            const toast = document.getElementById('successToast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
